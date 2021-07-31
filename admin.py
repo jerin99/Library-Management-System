@@ -4,9 +4,11 @@ import re
 
 #Admin related activities
 class Admin(dB):
+    #Default session for admin
     Session = False
     admin_users = [{'Username': 'admin', 'Password': 'admin'},]
 
+    #Admin can add books when this function is called
     def add_books(self):
         if Admin.Session:
             books = {}
@@ -39,6 +41,7 @@ class Admin(dB):
         else:
             print('Please login to add books')
 
+    #Admin can view all books that are in the db
     def view_books(self):
         if Admin.Session:
             books = dB.book_collection
@@ -56,6 +59,7 @@ class Admin(dB):
         else:
             print('Please login to view books')
 
+    #Admin can edit the books except book id by entering a valid book id
     def edit_books(self):
         if Admin.Session:
             book_id = int(input('Enter book id : '))
@@ -95,6 +99,7 @@ class Admin(dB):
         else:
             print('Please login to edit books')
 
+    #Admin can delete a book by entering a valid book id
     def delete_books(self):
         if Admin.Session:
             book_id = int(input('Enter book id : '))
@@ -107,6 +112,7 @@ class Admin(dB):
         else:
             print('Please login to delete books')
 
+    #Admin can create new admins with the help of this function
     def create_admin(self):
         if Admin.Session:
             user = {}
@@ -119,6 +125,7 @@ class Admin(dB):
         else:
             print('Please login to create new admins')
 
+    #Admin can check the requests submitted for books by the users
     def check_request_list(self):
         if Admin.Session:
             reqList = dB.requested_books
@@ -130,6 +137,7 @@ class Admin(dB):
         else:
             print('Please login to check requested lists')
 
+    #Admin can approve a book which has been requested by the user by entering the correspoding book id
     def approve_book(self):
         if Admin.Session:
             book_id = int(input('Enter book ID to approve : '))
@@ -144,9 +152,6 @@ class Admin(dB):
             contact = ""
             name = ""
             today, return_date, days_remaining = "", "", ""
-
-            
-
             for i in range(len(reqList)):
                 if reqList[i]['book_id']==book_id:
                     email = reqList[i]['email']
@@ -230,6 +235,7 @@ class Admin(dB):
         else:
             print('Please login to approve books')
 
+    #Admin can list all the borrowers when this function is called
     def list_borrowers(self):
         if Admin.Session:
             borrower_list = dB.borrower_list
@@ -242,6 +248,7 @@ class Admin(dB):
         else:
             print('Please login to check borrowers list')
 
+    #Admin can check all the requests for returning books from the user
     def check_return_book_list(self):
         if Admin.Session:
             book_list = dB.return_book
@@ -253,6 +260,10 @@ class Admin(dB):
         else:
             print('Please login to check list of returned books')
 
+    #Admin can confirm the return of a book by enterin the book id.
+    #It will also fine automatically based on the returning date
+    #Late by one day = Rs. 100
+    #Rest days = Rs.10/day
     def accept_return_books(self):
         if Admin.Session:
             return_book = dB.return_book
@@ -327,6 +338,7 @@ class Admin(dB):
         else:
             print('Please login to accept return books')
 
+    #For admin login
     @classmethod
     def admin_login(cls):
         username = input('Enter username : ')
@@ -340,6 +352,7 @@ class Admin(dB):
             else:
                 print('Username or password is incorrect')
 
+    #For admin Logout
     @classmethod
     def admin_logout(cls):
         cls.Session = False

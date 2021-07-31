@@ -5,9 +5,12 @@ import re
 class User(dB):
 
     def __init__(self):
+        #Default session and email for individual users
         self.session = False
         self.email = ""
 
+    #Function is called when a user requests a book, if the book is aailable and the book id is valid
+    #then the book is sent to admin for approval. Only after admin approval the book is granted to the user
     def request_books(self):
         if self.session:
             books = dB.book_collection
@@ -71,6 +74,7 @@ class User(dB):
         else:
             print('You are not logged in to request books')
 
+    #For registration of the user
     def register(self):
         users = dB.users_dB
         isDOB = False
@@ -133,10 +137,10 @@ class User(dB):
             print("\U0001F61F")
 
 
-
+    #For login to the library and to calculate remaining days if the book is not returned
     def login(self):
         users = dB.users_dB
-        username = input('Enter your username : ')
+        username = input('Enter your email : ')
         password = input('Enter your password : ')
         if len(users)>0:
             for i in range(len(users)):
@@ -198,6 +202,7 @@ class User(dB):
         else:
             print('No users')
         
+    #When this function is called, userscan view each and every book in the db
     def view_books(self):
         print(self.session)
         if self.session==True:
@@ -216,6 +221,7 @@ class User(dB):
         else:
             print('You are not logged in to view books')
 
+    #When this function is called, user can view all granted books
     def my_borrowed_list(self):
         if self.session:
             email = self.email
@@ -252,7 +258,7 @@ class User(dB):
             print('You are not logged in to view books')
 
 
-
+    #This function is used to return a book. This function submits the book from user to admin for returning
     def return_books(self):
         if self.session:
             email = self.email
@@ -311,7 +317,7 @@ class User(dB):
             print('Please login to return books')
 
 
-
+    #Logs out
     def logout(self):
         self.session=False
         print('Thank you for visiting uLibrary')
