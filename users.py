@@ -137,7 +137,7 @@ class User(dB):
             print("\U0001F61F")
 
 
-    #For login to the library and to calculate remaining days if the book is not returned
+    #For logging in to the library and to calculate remaining days if the book is not returned
     def login(self):
         users = dB.users_dB
         username = input('Enter your email : ')
@@ -204,7 +204,6 @@ class User(dB):
         
     #When this function is called, userscan view each and every book in the db
     def view_books(self):
-        print(self.session)
         if self.session==True:
             books = dB.book_collection
             if len(books):
