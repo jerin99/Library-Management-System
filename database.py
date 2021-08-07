@@ -12,3 +12,5 @@ class dB:
     borrower_list = []
     #To store history for users
     users_borrowing_history = []
+    #Teporary book  list
+    return_book = []
